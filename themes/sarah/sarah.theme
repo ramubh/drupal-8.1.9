@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+  
+ function sarah_preprocess_page_title(&$variables) {
+  // Load the node entity from current route
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+  $nid = $node->id();  
+    $bundle_label = \Drupal::entityTypeManager()
+      ->getStorage('node_type')
+      ->load($node->bundle())
+      ->label();   
+    // Set the page title
+    if ($nid == 1 && $bundle_label == 'Basic page') {
+    $variables['title'] = t('welcome');
+    }
+  }
+}
+
